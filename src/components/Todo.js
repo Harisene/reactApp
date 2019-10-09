@@ -1,32 +1,33 @@
 import React, { Component } from "react";
 import CompletedToDo from "./CompletedToDo";
+import todo from '../data/data'
 import Checkbox from "@material-ui/core/Checkbox";
-let temp, newTodo;
+let temp
 
 class Todo extends Component {
   state = {
-    dataSource: this.props.todo,
+    dataSource: todo,
     newTodo: "",
     completedTodo: []
   };
 
   addNewTodo = () => {
-    temp = this.state.dataSource;
-    newTodo = { item: this.state.newTodo };
+    temp = this.state.dataSource;    
 
-    temp.push(newTodo);
+    temp.push({ item: this.state.newTodo });
+
+    console.log("todo added.", this.state.newTodo);
 
     this.setState({ dataSource: temp, newTodo: "" });
 
-    console.log("todo added.", newTodo.item);
+  
   };
 
   addCompletedTodoBack = item => {
-    temp = this.state.dataSource;
-    newTodo = { item };
-    temp.push(newTodo);
+    temp = this.state.dataSource;   
+    temp.push({item});
     this.setState({ dataSource: temp });
-    console.log("competed todo added back to todoList.", item);
+    console.log("completed todo added back to todoList.", item);
   };
 
   deleteHandler = index => {
@@ -48,7 +49,7 @@ class Todo extends Component {
 
     this.setState({ dataSource: temp, completedTodo });
 
-    console.log("Todo completed", item);
+    console.log("Todo completed.", item);
   };
 
   showTodos = () => {
@@ -65,9 +66,9 @@ class Todo extends Component {
           key={i}
         >
           <div>
-          <Checkbox         
-                checked = {false}     
-              onChange = {()=>this.handleCompletedTodo(item.item,i)}
+            <Checkbox
+              checked={false}
+              onChange={() => this.handleCompletedTodo(item.item, i)}
             />
             <button
               className="btn btn-light"
@@ -75,7 +76,6 @@ class Todo extends Component {
             >
               {item.item}
             </button>
-            
           </div>
           <button
             className="btn btn-light"
@@ -107,6 +107,7 @@ class Todo extends Component {
   };
 
   render() {
+    
     return (
       <div>
         <p style={{ fontWeight: "bold" }}>To-do</p>
